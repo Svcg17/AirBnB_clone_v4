@@ -220,7 +220,7 @@ github repo
 
 * Sofia Cheung, [svcg17](https://github.com/Svcg17)
 * Farrukh Akhrarov [narnat](https://github.com/narnat)
-
+---
 
 ## License
 
