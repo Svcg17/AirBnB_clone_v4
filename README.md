@@ -218,6 +218,10 @@ github repo
 * Carrie Ybay, [hicarrie](https://github.com/hicarrie) | [@hicarrie_](https://twitter.com/hicarrie_)
 * Jared Heck, [jarehec](https://github.com/jarehec) | [@jarehec](https://twitter.com/jarehec)
 
+* Sofia Cheung, [svcg17](https://github.com/Svcg17)
+* Farrukh Akhrarov [narnat](https://github.com/narnat)
+
+
 ## License
 
 MIT License
