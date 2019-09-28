@@ -25,25 +25,78 @@ $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
 });
 
 
+const users = {};
+$.getJSON('http://0.0.0.0:5001/api/v1/users', (data) => {
+  for (const el of data) {
+    users[el.id] = el.first_name + ' ' + el.last_name
+  }
+});
+
 $.ajax({
   method: 'POST',
   url: 'http://0.0.0.0:5001/api/v1/places_search/',
   contentType: 'application/json',
+  dataType: 'json',
   data: JSON.stringify({}),
   success: function (data) {
-   console.log(data);
- }
-});
-/*
-const param = {
-  headers: {
-    "content-type":"application/json; charset=UTF-8"
-  },
-    body:{},
-    method:"POST"
-};
+    console.log(users);
+    console.log(data);
+    for (const place of Object.values(data)) {
+      $('section.places')
+	.append(`		  <article>
 
-window.fetch('http://0.0.0.0:5001/api/v1/places_search/', param)
-.then(data=>{return data})
-.then(res=>{console.log(res)})
-*/
+		      <div class="title">
+
+			  <h2>${place.name}</h2>
+
+			  <div class="price_by_night">
+
+			      $${place.price_by_night}
+
+			  </div>
+		      </div>
+		      <div class="information">
+			  <div class="max_guest">
+			      <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+
+			      <br />
+
+			      ${place.max_guest} Guests
+
+			  </div>
+			  <div class="number_rooms">
+			      <i class="fa fa-bed fa-3x" aria-hidden="true"></i>
+
+			      <br />
+
+			      ${place.number_rooms} Bedrooms
+			  </div>
+			  <div class="number_bathrooms">
+			      <i class="fa fa-bath fa-3x" aria-hidden="true"></i>
+
+			      <br />
+
+			      ${place.number_bathrooms} Bathroom
+
+			  </div>
+		      </div>
+
+		      <!-- **********************
+			   USER
+			   **********************  -->
+
+		      <div class="user">
+
+			  <strong>Owner: ${users[place.user_id]}</strong>
+
+		      </div>
+		      <div class="description">
+
+			  ${place.description}
+
+		      </div>
+
+		  </article> <!-- End 1 PLACE Article -->`)
+    }
+  }
+});
