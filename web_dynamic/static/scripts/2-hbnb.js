@@ -16,8 +16,8 @@ $(function () {
   });
 });
 
-$.getJSON('http://0.0.0.0:5002/api/v1/status/', (data) => {
-  if (data.status === 'OK') {
+$.get('http://0.0.0.0:5002/api/v1/status/', (data) => {
+  if (data.status === 200) {
     $('DIV#api_status').addClass('available');
   } else {
     $('DIV#api_status').removeClass('available');
