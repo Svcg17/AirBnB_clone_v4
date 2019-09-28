@@ -11,7 +11,7 @@ $(function () {
     if ($.isEmptyObject(newDict)) {
       $('.amenities h4').html('&nbsp');
     } else {
-      $('.amenities h4').html(`${Object.keys(newDict)}`);
+      $('.amenities h4').html(Object.keys(newDict).join(', '));
     }
   });
 });
