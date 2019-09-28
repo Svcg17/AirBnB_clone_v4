@@ -16,7 +16,7 @@ $(function () {
   });
 });
 
-$.get('http://0.0.0.0:5002/api/v1/status/', (data) => {
+$.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
   if (data.status === 200) {
     $('DIV#api_status').addClass('available');
   } else {
