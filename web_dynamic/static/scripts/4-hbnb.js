@@ -1,5 +1,4 @@
 const newDict = {};
-
 $(function () {
   $(':checkbox').click(function () {
     $(this).each(function () {
@@ -25,83 +24,85 @@ $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
   }
 });
 
-
 const users = {};
 $.getJSON('http://0.0.0.0:5001/api/v1/users', (data) => {
   for (const el of data) {
-    users[el.id] = el.first_name + ' ' + el.last_name
+    users[el.id] = el.first_name + ' ' + el.last_name;
   }
 });
 
-const places = {
-  amenities: Object.values(newDict)
-};
+$(function () {
+  $('button').click(function () {
+    const places = {
+      amenities: Object.values(newDict)
+    };
+    $.ajax({
+      method: 'POST',
+      url: 'http://0.0.0.0:5001/api/v1/places_search/',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify(places),
+      success: function (data) {
+        let st = '';
+        for (const place of Object.values(data)) {
+          st += `<article>
 
-$('button').click( function () {
-  $.ajax({
-    method: 'POST',
-    url: 'http://0.0.0.0:5001/api/v1/places_search/',
-    contentType: 'application/json',
-    dataType: 'json',
-    data: JSON.stringify(places),
-    success: function (data) {
-      for (const place of Object.values(data)) {
-      $('section.places')
-	.append(`		  <article>
+                      <div class="title">
 
-		      <div class="title">
+                          <h2>${place.name}</h2>
 
-			  <h2>${place.name}</h2>
+                          <div class="price_by_night">
 
-			  <div class="price_by_night">
+                              $${place.price_by_night}
 
-			      $${place.price_by_night}
+                          </div>
+                      </div>
+                      <div class="information">
+                          <div class="max_guest">
+                              <i class="fa fa-users fa-3x" aria-hidden="true"></i>
 
-			  </div>
-		      </div>
-		      <div class="information">
-			  <div class="max_guest">
-			      <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+                              <br />
 
-			      <br />
+                              ${place.max_guest} Guests
 
-			      ${place.max_guest} Guests
+                          </div>
+                          <div class="number_rooms">
+                              <i class="fa fa-bed fa-3x" aria-hidden="true"></i>
 
-			  </div>
-			  <div class="number_rooms">
-			      <i class="fa fa-bed fa-3x" aria-hidden="true"></i>
+                              <br />
 
-			      <br />
+                              ${place.number_rooms} Bedrooms
+                          </div>
+                          <div class="number_bathrooms">
+                              <i class="fa fa-bath fa-3x" aria-hidden="true"></i>
 
-			      ${place.number_rooms} Bedrooms
-			  </div>
-			  <div class="number_bathrooms">
-			      <i class="fa fa-bath fa-3x" aria-hidden="true"></i>
+                              <br />
 
-			      <br />
+                              ${place.number_bathrooms} Bathroom
 
-			      ${place.number_bathrooms} Bathroom
+                          </div>
+                      </div>
 
-			  </div>
-		      </div>
+                      <!-- **********************
+                           USER
+                           **********************  -->
 
-		      <!-- **********************
-			   USER
-			   **********************  -->
+                      <div class="user">
 
-		      <div class="user">
+                          <strong>Owner: ${users[place.user_id]}</strong>
 
-			  <strong>Owner: ${users[place.user_id]}</strong>
+                      </div>
+                      <div class="description">
 
-		      </div>
-		      <div class="description">
+                          ${place.description}
 
-			  ${place.description}
+                      </div>
 
-		      </div>
-
-		  </article> <!-- End 1 PLACE Article -->`)
-    }
-  }
-});
+                  </article> <!-- End 1 PLACE Article -->`;
+        }
+        $('section.places').html(st);
+      }
+    });
+  });
+  $('button').click();
 });
