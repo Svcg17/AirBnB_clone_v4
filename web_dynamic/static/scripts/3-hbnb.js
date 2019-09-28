@@ -23,3 +23,27 @@ $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
     $('DIV#api_status').removeClass('available');
   }
 });
+
+
+$.ajax({
+  method: 'POST',
+  url: 'http://0.0.0.0:5001/api/v1/places_search/',
+  contentType: 'application/json',
+  data: JSON.stringify({}),
+  success: function (data) {
+   console.log(data);
+ }
+});
+/*
+const param = {
+  headers: {
+    "content-type":"application/json; charset=UTF-8"
+  },
+    body:{},
+    method:"POST"
+};
+
+window.fetch('http://0.0.0.0:5001/api/v1/places_search/', param)
+.then(data=>{return data})
+.then(res=>{console.log(res)})
+*/
