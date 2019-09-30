@@ -31,6 +31,12 @@ $ HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL_PWD=hbnb_test_pwd \
 HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db \
 [COMMAND HERE]
 ```
+##### Latest update:
+- Filters and button search have now functionality
+- front-end rendering enabled to the web application using jQuery
+
+<img src="https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/309/hbnb_2_0.jpg" 
+
 
 ## Environment
 
