@@ -1,16 +1,6 @@
-const newCity = {};
-const newStates = {};
 const newDict = {};
 const users = {};
-
-// Check if an object is empty
-function isEmpty(obj) {
-  for(var key in obj) {
-    if(obj.hasOwnProperty(key))
-      return false;
-  }
-  return true;
-}
+const newLoc = {};
 
 // Amenities
 $(function () {
@@ -32,44 +22,39 @@ $(function () {
 
 // States
 $(function () {
-  $('.locations h2 :checkbox').click(function () {
+  $('.locations :checkbox').click(function () {
     $(this).each(function () {
       if ($(this).prop('checked') === true) {
-        newStates[($(this).attr('data-name'))] = ($(this).attr('data-id'));
+        newLoc[($(this).attr('data-name'))] = ($(this).attr('data-id'));
       } else {
-        delete newStates[($(this).attr('data-name'))];
+        delete newLoc[($(this).attr('data-name'))];
       }
     });
-    if ($.isEmptyObject(newStates)) {
+    if ($.isEmptyObject(newLoc)) {
       $('.locations h4').html('&nbsp');
     } else {
-      if (isEmpty(newCity)) {
-	$('.locations h4').html(Object.keys(newStates).join(', '));
-      } else {
-	$('.locations h4').html(Object.keys(newCity).join(', '));
-      }
+      $('.locations h4').html(Object.keys(newLoc).join(', '));
     }
   });
 });
 
 // Cities
-$(function () {
-  $('.locations li :checkbox').click(function () {
-    $(this).each(function () {
-      if ($(this).prop('checked') === true) {
-        newCity[($(this).attr('data-name'))] = ($(this).attr('data-id'));
-      } else {
-        delete newCity[($(this).attr('data-name'))];
-      }
-    });
-    if ($.isEmptyObject(newCity)) {
-      $('.locations h4').html('&nbsp');
-    } else {
-      $('.locations h4').html(Object.keys(newCity).join(', '));
-    }
-    console.log(newCity);
-  });
-});
+// $(function () {
+//   $('.locations li :checkbox').click(function () {
+//     $(this).each(function () {
+//       if ($(this).prop('checked') === true) {
+//         newLoc[($(this).attr('data-name'))] = ($(this).attr('data-id'));
+//       } else {
+//         delete newLoc[($(this).attr('data-name'))];
+//       }
+//     });
+//     if ($.isEmptyObject(newLoc)) {
+//       $('.locations h4').html('&nbsp');
+//     } else {
+//       $('.locations h4').html(Object.keys(newLoc).join(', '));
+//     }
+//   });
+// });
 
 // API status circle
 $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
@@ -87,10 +72,13 @@ $.getJSON('http://0.0.0.0:5001/api/v1/users', (data) => {
   }
 });
 
+// Filtering logic
 $(function () {
   $('button').click(function () {
     const places = {
       amenities: Object.values(newDict),
+      states: Object.values(newLoc),
+      cities: Object.values(newLoc)
     };
     $.ajax({
       method: 'POST',
